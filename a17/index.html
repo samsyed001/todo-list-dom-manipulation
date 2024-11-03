@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: silver;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 8px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f4f4f4;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task"/>
+    <button onclick="addAtEnd()">Add at the End</button>
+
+    <div>
+        <button onclick="addAtStart()">Add at the Start</button>
+        <button onclick="removeFromStart()">Remove from Start</button>
+        <button onclick="removeFromEnd()">Remove from End</button>
+    </div>
+
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    var tasks = [];
+
+    function renderTasks() {
+        var taskList = document.getElementById("taskList");
+        taskList.innerHTML = '';
+
+        tasks.forEach(function (task) {
+            var li = document.createElement("li");
+            li.textContent = task;
+            taskList.appendChild(li);
+        });
+    }
+
+    function addAtEnd() {
+        var taskInput = document.getElementById("taskInput");
+        var task = taskInput.value.trim();
+
+        if (task) {
+            tasks.push(task);
+            taskInput.value = '';
+            renderTasks();
+        }
+    }
+
+    function addAtStart() {
+        var taskInput = document.getElementById("taskInput");
+        var task = taskInput.value.trim();
+
+        if (task) {
+            tasks.unshift(task);
+            taskInput.value = '';
+            renderTasks();
+        }
+    }
+
+    function removeFromStart() {
+        if (tasks.length > 0) {
+            tasks.shift();
+            renderTasks();
+        } else {
+            alert("No tasks to remove!");
+        }
+    }
+
+    function removeFromEnd() {
+        if (tasks.length > 0) {
+            tasks.pop();
+            renderTasks();
+        } else {
+            alert("No tasks to remove!");
+        }
+    }
+</script>
+
+</body>
+</html>
